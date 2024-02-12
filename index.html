@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | Interactive rating component</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+
+    body{
+      background-color:hsl(228, 11%, 9%);
+      font-family:'Overpass'
+    }
+    .container{
+      display:flex;
+      flex-direction:column;
+      background-color:hsl(214, 19%, 16%);
+      border-radius:15px;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      padding:25px;
+      width:350px;
+    }
+
+    .starIcon img{
+      width:15px;
+      padding:12px 14px;
+
+
+    }
+
+    .starIcon{
+      background-color:hsl(208, 20%, 18%);
+      border-radius:50%;
+      display:block;
+      margin-right:auto;
+      margin-bottom:10px;
+
+    }
+
+    .pickNum{
+      display:flex;
+      flex-direction:row;
+      justify-content: space-between;
+      margin-bottom:20px;
+    }
+
+    h3{
+      color:white;
+      margin-bottom:0px;
+    }
+
+    p{
+      color:hsl(214, 9%, 36%);
+
+    }
+
+    h2{
+      color:white;
+      margin-bottom:0px;
+    }
+
+    .submitButton{
+      background-color:white;
+      color:hsl(26, 97%, 74%);
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:5px;
+      border-radius:15px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .submitButton:hover{
+      background-color:hsl(0, 0%, 80%);
+      color:hsl(26, 97%, 74%);
+    }
+
+    .pickNum div{
+      border-radius:50%;
+      background-color:hsl(208, 20%, 18%);
+      padding:12px 18px;
+      font-weight:bold;
+      color:gray;
+    }
+
+    .hide{
+      display:none;
+    }
+
+    .container2 img{
+      width:200px;
+
+    }
+
+    .num{
+      cursor:pointer;
+    }
+
+    .container2{
+      display:flex;
+      flex-direction:column;
+      background-color:hsl(214, 19%, 16%);
+      border-radius:15px;
+      position:absolute;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      padding:25px;
+      width:350px;
+      align-items:center;
+      text-align:center;
+      display:none;
+      justify-content:center;
+
+    }
+
+    .container2 img{
+      margin:25px;
+    }
+
+    .selected{
+      background-color:hsl(187, 10%, 17%);
+      border-radius:15px;
+      padding:10px 15px;
+      color:hsl(28, 55%, 32%);
+      font-weight:bold;
+      width:200px;
+      align-items:center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    h2{
+      font-weight:bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Rating state start -->
+  <div class="container">
+    <div class="starIcon">
+      <img src="images/icon-star.svg" alt="star icon">
+    </div>
+
+    <h3>
+      How did we do?
+    </h3>
+    
+    <p>
+      Please let us know how we did with your support request. All feedback is appreciated 
+      to help us improve our offering!
+    </p>
+
+    <div class="pickNum">
+      <div class="num">1</div>
+      <div class="num">2</div>
+      <div class="num">3</div>
+      <div class="num">4</div>
+      <div class="num">5</div>
+    </div>
+
+
+
+    <div class="submitButton">
+      Submit
+    </div>
+
+  </div>
+  
+
+  <!-- Rating state end -->
+
+  <!-- Thank you state start -->
+  <div class="container2" >
+    <img src="images/illustration-thank-you.svg">
+    <div class="selected">
+      You selected <!-- Add rating here --> out of 5
+    </div>
+
+    <h2>
+      Thank you!
+    </h2>
+    
+    <p>
+      We appreciate you taking the time to give a rating. If you ever need more support, 
+      don’t hesitate to get in touch!
+    </p>
+
+  
+  </div>
+
+  <!-- Thank you state end -->
+  <script>
+    let circle = document.querySelectorAll(".num");
+    let x;
+    let isClicked = false;
+
+    circle.forEach(element =>{
+      element.addEventListener("mouseover",event =>{
+        if(!event.target.classList.contains("clicked")){
+          event.target.style.backgroundColor = "hsl(214, 13%, 54%)";
+          event.target.style.color = "white";
+        }
+      });
+
+      element.addEventListener("mouseout",event =>{
+        if(!event.target.classList.contains("clicked")){
+          event.target.style.backgroundColor = "hsl(208, 20%, 18%)";
+          event.target.style.color = "hsl(214, 9%, 36%)";
+        }
+
+      });
+
+      element.addEventListener("click",event =>{
+        if(isClicked){
+          circle[x-1].style.backgroundColor = "hsl(208, 20%, 18%)";
+          circle[x-1].classList.remove("clicked");
+          circle[x-1].style.color = "hsl(214, 9%, 36%)";
+        }
+
+        event.target.style.backgroundColor = "hsl(28, 55%, 32%)";
+        event.target.style.color = "white";
+        event.target.classList.add("clicked");
+        x = event.target.textContent;
+        isClicked = true;
+      });
+
+
+
+    });
+
+    let submit = document.getElementsByClassName("submitButton")
+    submit = submit[0];
+
+    submit.addEventListener("click",event =>{
+
+      if(!isClicked){
+        window.alert("Please Pick a Number!");
+      }
+      else{
+        document.querySelector(".container2").style.display = "flex";
+        document.querySelector(".container").style.display = "none";
+        document.querySelector(".selected").textContent = `You selected ${x} out of 5`;
+      }
+
+    });
+
+  </script>
+  
+
+</body>
+</html>
